@@ -19,13 +19,19 @@ public class TaskController {
     private final TaskRepository taskRepository;
     private final TaskService taskService;
 
+    int check = 0;
     @GetMapping("/tasks")
     public List<Task> getAllPosts() {
         Task[] tasks = restTemplate.getForObject("https://jsonplaceholder.typicode.com/todos",
                 Task[].class);
         List<Task> taskList = Arrays.asList(tasks);
         //taskRepository.saveAll(taskList);
-        taskService.saveAllTasks(taskList);
+        if(taskList != null){
+            check = 1;
+            if(check == 1){
+                taskService.saveAllTasks(taskList);
+            }
+        }
         return taskList;
     }
 
